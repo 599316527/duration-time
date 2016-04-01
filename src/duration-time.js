@@ -19,8 +19,23 @@ class DurationTime {
   }
 
   format(sec) {
+    if (!isNumeric(sec)) {
+      throw new Error('Accept numeric only')
+    }
+
     let s = ''
     let t
+
+    if (this.keepDecimals) {
+      t = sec - Math.round(sec)
+      if (t) {
+        s += t.toFixed(this.keepDecimals).substring(1)
+      } else if (this.alwaysDisplayDecimals) {
+        s += '.' + '0'.repeat(this.keepDecimals)
+      }
+    }
+
+    sec = Math.round(sec)
     let n = this.colonNumber
     for (let i = 1; i <= n; ++i) {
       if (i > 1) {
@@ -35,10 +50,15 @@ class DurationTime {
       t = t / Math.pow(60, i - 1)
       s = (this.hasLeadingZero ? fixLeadingZero(t) : t) + s
     }
+
     return s
   }
 
   parse(val) {
+    if (!val || !/^(\d+\:)*\d+(\.\d+)?$/.test(val)) {
+      throw new Error('Unacceptable time string')
+    }
+
     return val.split(':').reverse().reduce(function (previousValue, currentValue, currentIndex) {
       return previousValue + (currentValue * Math.pow(60, currentIndex))
     }, 0)
@@ -71,3 +91,8 @@ function fixLeadingZero(i, n = 2) {
   i = i.toString()
   return i.length < n ? '0'.repeat(n - i.length) + i : i
 }
+
+function isNumeric(val) {
+  return Object.prototype.toString.call(val) === '[object Number]'
+}
+
