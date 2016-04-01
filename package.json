@@ -1,6 +1,6 @@
 {
   "name": "duration-time-format",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Duration Time Format/Parse",
   "main": "index.js",
   "directories": {

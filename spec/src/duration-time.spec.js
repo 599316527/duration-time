@@ -45,6 +45,9 @@ describe('Duration Time', function () {
         expect(DurationTime({keepDecimals: 2}).format(111.10)).toBe('00:01:51.10')
         expect(DurationTime({keepDecimals: 0}).format(111.11)).toBe('00:01:51')
 
+        expect(DurationTime().format((3 * 60 + 54) * .2)).toBe('00:00:46.80')
+        expect(DurationTime().format((3 * 60 + 54) * .4)).toBe('00:01:33.60')
+
         expect(function () {
             DurationTime().format(true)
         }).toThrowError('Accept numeric only')

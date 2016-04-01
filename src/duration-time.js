@@ -27,7 +27,7 @@ class DurationTime {
     let t
 
     if (this.keepDecimals) {
-      t = sec - Math.round(sec)
+      t = sec - Math.floor(sec)
       if (t) {
         s += t.toFixed(this.keepDecimals).substring(1)
       } else if (this.alwaysDisplayDecimals) {
@@ -35,7 +35,7 @@ class DurationTime {
       }
     }
 
-    sec = Math.round(sec)
+    sec = Math.floor(sec)
     let n = this.colonNumber
     for (let i = 1; i <= n; ++i) {
       if (i > 1) {
