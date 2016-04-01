@@ -5,48 +5,60 @@
  * @date 2016-03-31 15:12:38
  */
 
-/**
- * Parse Duration Time Stirng
- *
- * parseDurationString('01:02:03') => 3723
- * parseDurationString('62:13') => 3733
- *
- * @param  {String} val Duration Time String
- * @return {Number}     Duration Time in Seconds
- */
-export function parse(val) {
-  return val.split(':').reverse().reduce(function (previousValue, currentValue, currentIndex) {
-    return previousValue + (currentValue * Math.pow(60, currentIndex))
-  }, 0)
+const defaultConfig = {
+  colonNumber: 3,
+  keepDecimals: 2,
+  alwaysDisplayDecimals: false,
+  hasLeadingZero: true
 }
 
-/**
- * Format Duration String
- *
- * formatDurationString(3723, 2) = '62:03'
- * formatDurationString(3723, 3) = '01:02:03'
- * formatDurationString(3723, 4) = '00:01:02:03'
- *
- * @param  {Number} sec Duration Time in Seconds
- * @param  {Number} n   Number of colon seperators
- * @return {String}     Duration Time String
- */
-export function format(sec, n = 3) {
-  let s = ''
-  let t
-  for (let i = 1; i <= n; ++i) {
-    if (i > 1) {
-      s = ':' + s
-    }
-    if (i < n) {
-      t = sec % Math.pow(60, i)
-      sec = sec - t < 0 ? 0 : sec - t
-    } else {
-      t = sec
-    }
-    s = fixLeadingZero(t / Math.pow(60, i - 1)) + s
+class DurationTime {
+  constructor (config = {}) {
+    // console.log(this);
+    extendObject(this, defaultConfig, config)
   }
-  return s
+
+  format(sec) {
+    let s = ''
+    let t
+    let n = this.colonNumber
+    for (let i = 1; i <= n; ++i) {
+      if (i > 1) {
+        s = ':' + s
+      }
+      if (i < n) {
+        t = sec % Math.pow(60, i)
+        sec = sec - t < 0 ? 0 : sec - t
+      } else {
+        t = sec
+      }
+      t = t / Math.pow(60, i - 1)
+      s = (this.hasLeadingZero ? fixLeadingZero(t) : t) + s
+    }
+    return s
+  }
+
+  parse(val) {
+    return val.split(':').reverse().reduce(function (previousValue, currentValue, currentIndex) {
+      return previousValue + (currentValue * Math.pow(60, currentIndex))
+    }, 0)
+  }
+
+}
+
+export default DurationTime
+
+
+
+function extendObject(target, ...sources) {
+  sources.forEach(function (source) {
+    for (let key in source) {
+      if (source.hasOwnProperty(key)) {
+        target[key] = source[key]
+      }
+    }
+  })
+  return target
 }
 
 /**

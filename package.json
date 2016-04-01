@@ -1,7 +1,7 @@
 {
-  "name": "duration-time",
+  "name": "duration-time-format",
   "version": "1.0.0",
-  "description": "Duration Time",
+  "description": "Duration Time Format/Parse",
   "main": "index.js",
   "directories": {
     "test": "test"
