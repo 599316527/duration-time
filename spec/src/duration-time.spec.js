@@ -37,9 +37,10 @@ describe('Duration Time', function () {
         expect(durationTime().format(11111)).toBe('03:05:11')
 
         expect(durationTime({keepDecimals: 2}).format(111)).toBe('00:01:51')
-        expect(durationTime({keepDecimals: 2, alwaysDisplayDecimals: true})
-            .format(111)).toBe('00:01:51.00')
-        expect(durationTime({keepDecimals: 2}).format(111.11)).toBe('00:01:51.11')
+        expect(durationTime({alwaysDisplayDecimals: true}).format(111)).toBe('00:01:51.00')
+        expect(durationTime({keepDecimals: 1}).format(111.11)).toBe('00:01:51.1')
+        expect(durationTime().format(111.11)).toBe('00:01:51.11')
+        expect(durationTime({keepDecimals: 2}).format(111.10)).toBe('00:01:51.10')
         expect(durationTime({keepDecimals: 0}).format(111.11)).toBe('00:01:51')
 
         expect(function () {
