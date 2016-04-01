@@ -54,7 +54,7 @@ class DurationTime {
     return s
   }
 
-  parse(val) {
+  static parse(val) {
     if (!val || !/^(\d+\:)*\d+(\.\d+)?$/.test(val)) {
       throw new Error('Unacceptable time string')
     }

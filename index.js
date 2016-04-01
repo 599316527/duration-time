@@ -1,6 +1,9 @@
-
 const DurationTime = require('./lib/duration-time').default;
 
-module.exports = function (config) {
+function entry(config) {
     return new DurationTime(config)
 }
+
+entry.parse = DurationTime.parse
+
+module.exports = entry
