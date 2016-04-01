@@ -11,7 +11,7 @@ DurationTime().format(11111) === '03:05:11'
 
 // Specify colon number
 DurationTime({
-    colonNumber: 2
+    colonNumber: 1
 }).format(11111) === '185:11'
 
 // Without leading zeros

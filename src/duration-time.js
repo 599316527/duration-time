@@ -6,7 +6,7 @@
  */
 
 const defaultConfig = {
-  colonNumber: 3,
+  colonNumber: 2,
   keepDecimals: 2,
   alwaysDisplayDecimals: false,
   hasLeadingZero: true
@@ -36,7 +36,7 @@ class DurationTime {
     }
 
     sec = Math.floor(sec)
-    let n = this.colonNumber
+    let n = this.colonNumber + 1
     for (let i = 1; i <= n; ++i) {
       if (i > 1) {
         s = ':' + s

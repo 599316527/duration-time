@@ -26,15 +26,15 @@ describe('Duration Time', function () {
     })
 
     it('Format', function () {
-        expect(DurationTime({colonNumber: 1}).format(111)).toBe('111')
-        expect(DurationTime({colonNumber: 2}).format(111)).toBe('01:51')
-        expect(DurationTime({colonNumber: 3}).format(111)).toBe('00:01:51')
-        expect(DurationTime({colonNumber: 4}).format(111)).toBe('00:00:01:51')
+        expect(DurationTime({colonNumber: 0}).format(111)).toBe('111')
+        expect(DurationTime({colonNumber: 1}).format(111)).toBe('01:51')
+        expect(DurationTime({colonNumber: 2}).format(111)).toBe('00:01:51')
+        expect(DurationTime({colonNumber: 3}).format(111)).toBe('00:00:01:51')
 
-        expect(DurationTime({colonNumber: 2}).format(1111)).toBe('18:31')
+        expect(DurationTime({colonNumber: 1}).format(1111)).toBe('18:31')
         expect(DurationTime().format(1111)).toBe('00:18:31')
 
-        expect(DurationTime({colonNumber: 2}).format(11111)).toBe('185:11')
+        expect(DurationTime({colonNumber: 1}).format(11111)).toBe('185:11')
         expect(DurationTime({hasLeadingZero: false}).format(11111)).toBe('3:5:11')
         expect(DurationTime().format(11111)).toBe('03:05:11')
 
